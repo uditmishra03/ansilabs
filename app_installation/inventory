@@ -1,0 +1,5 @@
+[all]
+server1 ansible_host=server1 ansible_user=server1_admin ansible_ssh_pass=server1_admin@123!
+
+[all:vars]
+package_list=nginx,apache2,git
