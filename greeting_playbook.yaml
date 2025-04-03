@@ -1,8 +1,18 @@
+# - name: Print Customized Greeting Message
+#   hosts: localhost
+#   vars:
+#       user_name: "Alice"
+#       user_role: "Developer"
+#   tasks:
+#           - ansible.builtin.debug:
+#               msg: "Hello, {{ user_name }}. You are a {{ user_role }}."
+
 - name: Print Customized Greeting Message
   hosts: localhost
   vars:
       user_name: "Alice"
       user_role: "Developer"
   tasks:
-          - ansible.builtin.debug:
-              msg: "Hello, {{ user_name }}. You are a {{ user_role }}."
+          - name: Show greetings
+            debug:
+                msg: "Hello, {{ user_name }}. You are a {{ user_role }}."
