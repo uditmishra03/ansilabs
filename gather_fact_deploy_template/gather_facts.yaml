@@ -1,0 +1,14 @@
+- name: Gather Specific Facts
+  hosts: localhost
+  gather_facts: yes  # Ensures facts are gathered
+  gather_subset:
+    - "!all"
+    - "min"  # Gathers minimal facts
+
+  tasks:
+    - name: Display System Information
+      debug:
+        msg:
+          - "Operating System: {{ ansible_distribution | default('Unknown') }} {{ ansible_distribution_version | default('Unknown') }}"
+          - "Hostname: {{ ansible_hostname | default('Unknown') }}"
+          - "CPU Cores: {{ ansible_processor_cores | default('Unknown') }}"
