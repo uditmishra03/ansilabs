@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Info</title>
+</head>
+<body>
+    <h1>System Info for {{ ansible_hostname }}</h1>
+    <p>OS: {{ ansible_distribution }} {{ ansible_distribution_version }}</p>
+    <p>CPU Cores: {{ ansible_processor_cores | default('Unknown') }}</p>
+    <p>Logical CPUs: {{ ansible_processor_vcpus | default('Unknown') }}</p>
+    <p>Total Memory: {{ ansible_memtotal_mb }} MB</p>
+</body>
+</html>
