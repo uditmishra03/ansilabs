@@ -1,0 +1,27 @@
+- name: Deploy System Info Web Page
+  hosts: webservers
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.package:
+        name: apache2  # Use 'httpd' for RHEL
+        state: present
+
+    - name: Ensure Apache is running
+      ansible.builtin.service:
+        name: apache2  # Use 'httpd' for RHEL
+        state: started
+        enabled: yes
+
+    - name: Generate system info page
+      ansible.builtin.template:
+        src: system_info.j2
+        dest: /var/www/html/index.html
+        mode: '0644'
+
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: apache2  # Use 'httpd' for RHEL
+        state: restarted
