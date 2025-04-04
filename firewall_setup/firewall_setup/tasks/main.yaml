@@ -1,1 +1,19 @@
-#
+---
+# tasks file for firewall_setup
+- name: Set rule action based on input
+  set_fact:
+    firewall_action: "{{ 'allow' if service_allowed | bool else 'deny' }}"
+
+- name: Define list of services to control
+  set_fact:
+    fw_services:
+      - http
+      - ssh
+
+- name: Manage UFW rules for each service
+  command: "ufw {{ firewall_action }} {{ item }}" 
+  loop: "{{ fw_services }}"
+
+- name: Enable UFW firewall
+  ansible.builtin.ufw:
+    state: enabled
