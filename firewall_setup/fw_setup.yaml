@@ -1,0 +1,7 @@
+- name: Firewall Setup based on input
+  hosts: localhost                          # update with group or all
+  become: yes
+  roles:
+    - role: firewall_setup
+      vars:
+        service_allowed: "{{ service_allowed }}"
