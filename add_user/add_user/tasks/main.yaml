@@ -1,0 +1,9 @@
+---
+# tasks file for add_user
+
+- name: Create user account
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    shell: "{{ user_shell | default('/bin/bash') }}"
+    home: "/home/{{ user_name }}"
+    create_home: "{{ create_home | default(true) }}"
