@@ -1,0 +1,9 @@
+- name: Add user with dynamic variables
+  hosts: localhost                          # update with group or all
+  become: yes
+  roles:
+    - role: add_user
+      vars:
+        user_name: "{{ user_name }}"
+        user_shell: "{{ user_shell }}"
+        create_home: "{{ create_home }}"
