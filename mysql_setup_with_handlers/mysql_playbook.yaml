@@ -1,0 +1,5 @@
+- name: Mysql Setup
+  hosts: localhost
+  become: yes
+  roles:
+    - mysql_setup
