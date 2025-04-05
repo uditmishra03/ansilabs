@@ -1,0 +1,16 @@
+---
+# tasks file for mysql_setup
+
+- name: Install MySQL Server
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+  notify: Restart mysql
+
+- name: Ensure MySQL is running
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+  notify: Restart mysql
