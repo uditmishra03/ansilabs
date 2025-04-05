@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>System Info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Information</title>
 </head>
 <body>
-    <h1>System Info for {{ ansible_hostname }}</h1>
-    <p>OS: {{ ansible_distribution }} {{ ansible_distribution_version }}</p>
-    <p>CPU Cores: {{ ansible_processor_cores | default('Unknown') }}</p>
-    <p>Logical CPUs: {{ ansible_processor_vcpus | default('Unknown') }}</p>
-    <p>Total Memory: {{ ansible_memtotal_mb }} MB</p>
+    <h1>System Information for {{ ansible_hostname }}</h1>
+    <p>Here are the details of your server:</p>
+    <ul>
+        <li>Operating System: {{ ansible_distribution }} {{ ansible_distribution_version }}</li>
+        <li>Hostname: {{ ansible_hostname }}</li>
+        <li>Number of CPU Cores: {{ ansible_processor_cores | default(1) }}</li>
+        <li>Number of CPUs: {{ ansible_processor_count | default(1) }}</li>
+    </ul>
 </body>
 </html>
