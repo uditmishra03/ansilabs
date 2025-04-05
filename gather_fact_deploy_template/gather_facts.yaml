@@ -1,5 +1,5 @@
 - name: Gather Specific Facts
-  hosts: localhost
+  hosts: server
   gather_facts: yes  # Ensures facts are gathered
   gather_subset:
     - "!all"
@@ -11,4 +11,6 @@
         msg:
           - "Operating System: {{ ansible_distribution | default('Unknown') }} {{ ansible_distribution_version | default('Unknown') }}"
           - "Hostname: {{ ansible_hostname | default('Unknown') }}"
-          - "CPU Cores: {{ ansible_processor_cores | default('Unknown') }}"
+          - "Number of CPU Cores: {{ ansible_processor_cores | default(1) }}"
+          - "Number of CPUs: {{ ansible_processor_count | default(1) }}"
+          - "CPU cores: {{ ansible_facts['processor_cores'] | default(1) }}"
