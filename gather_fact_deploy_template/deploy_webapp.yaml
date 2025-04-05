@@ -1,5 +1,5 @@
 - name: Deploy System Info Web Page
-  hosts: webservers
+  hosts: server
   become: yes
   gather_facts: yes
 
