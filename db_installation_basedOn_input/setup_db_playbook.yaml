@@ -4,7 +4,7 @@
 
   vars_prompt:
     - name: "db_engine"
-      prompt: "Enter the database engine (mysql or postgresql)"
+      prompt: "Enter the database (mysql/postgresql) "
       private: no
 
   tasks:
