@@ -1,0 +1,63 @@
+- name: server Installation
+  hosts: all
+  become: yes
+
+  vars_prompt:
+    - name: "db_engine"
+      prompt: "Enter the database (mysql/postgresql) "
+      private: no
+
+  tasks:
+        - block:
+            - name: Install PostgreSQL and dependencies
+              apt:
+                name:
+                  - postgresql
+                  - postgresql-contrib
+                state: present
+
+            - name: Ensure PostgreSQL service is running and enabled
+              service:
+                name: postgresql
+                state: started
+                enabled: yes
+
+            - name: Generate system info page
+              ansible.builtin.template:
+                src: postgresql.conf.j2
+                dest: /etc/postgresql/16/main/postgresql.conf
+                mode: '0644'
+              notify: restart mysql
+          when: db_engine == "postgresql"
+
+        - block:
+            - name: Install MySQL Server
+              ansible.builtin.apt:
+                name: mysql-server
+                state: present
+                update_cache: yes
+           
+            - name: Ensure MySQL is running
+              ansible.builtin.service:
+                name: mysql
+                state: started
+                enabled: true
+
+            - name: Generate system info page
+              ansible.builtin.template:
+                src: mysql.cnf.j2
+                dest: /etc/mysql/mysql.cnf
+                mode: '0644'
+              notify: restart postgresql
+          when: db_engine == "mysql"
+ 
+  handlers:
+    - name: restart mysql
+      service:
+        name: mysql
+        state: restarted
+
+    - name: restart postgresql
+      service:
+        name: postgresql
+        state: restarted
