@@ -1,0 +1,23 @@
+- name: Ensure the application directory exists
+  ansible.builtin.file:
+    path: /usr/local/app
+    state: directory
+    mode: '0755'
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: /home/user/greet.py
+    dest: /usr/local/app/greet.py
+    owner: user
+    group: user
+    mode: '0755'
+
+- name: Pass a Username and execute the script
+  environment:
+    USER_NAME: "{{ user_name }}"
+  shell: "python3 /usr/local/app/greet.py"
+  register: greet_output
+
+- name: Display greet output
+  debug:
+      msg: "{{ greet_output.stdout }}"
