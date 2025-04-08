@@ -1,0 +1,7 @@
+- name: Copy and Run python Script
+  hosts: localhost                          # update with group or all
+  vars:
+      user_name : "alice"
+  become: yes
+  roles:
+    - role: greet
